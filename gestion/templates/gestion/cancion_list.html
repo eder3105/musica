@@ -1,0 +1,40 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>🎵 Canciones</h1>
+  <a href="{% url 'cancion_create' %}" class="btn btn-success">+ Nueva Canción</a>
+</div>
+<div class="card p-3">
+  <table class="table table-dark table-hover align-middle">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Título</th>
+        <th>Duración</th>
+        <th>Género</th>
+        <th>Artista</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in canciones %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td><strong>{{ c.titulo }}</strong></td>
+        <td>{{ c.duracion }} min</td>
+        <td><span class="badge bg-purple" style="background-color:#a371f7">{{ c.genero }}</span></td>
+        <td>{{ c.artista }}</td>
+        <td>
+          <a href="{% url 'cancion_edit' c.pk %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+          <a href="{% url 'cancion_delete' c.pk %}" class="btn btn-sm btn-danger">🗑️ Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center text-muted py-4">No hay canciones registradas.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
